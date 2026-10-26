@@ -33,3 +33,5 @@ dialog{border:0;padding:0;color:var(--ink);background:var(--paper);box-shadow:0 
 .motion-reduced .fluid-canvas{display:none}.switch:disabled{opacity:.35;cursor:not-allowed}
 @media(prefers-reduced-motion:reduce){.fluid-canvas{display:none}.js-motion .fluid-canvas{display:block}}
 @media(max-width:760px){.fluid-canvas{filter:blur(4px);opacity:.7}}
+
+#nasheedAudio{display:block;width:calc(100% - 28px);margin:0 14px;height:44px}.contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.contact-status{font-size:13px;line-height:1.6;margin-top:15px;color:#8c3dc4}.purple-button:disabled{opacity:.6;cursor:wait}#contactEmailFallback{font-size:12px;margin-top:12px}

@@ -203,24 +203,59 @@ $$('dialog').forEach(dialog => {
   });
   dialog.addEventListener('close', () => lastDialogTrigger?.focus({ preventScroll: true }));
 });
-$('#projectForm').addEventListener('submit', event => {
+function updateEmailFallback() {
+  const values = new FormData($('#projectForm'));
+  const message = `Name: ${values.get('name') || ''}\nEmail: ${values.get('email') || ''}\nServices: ${values.getAll('services').join(', ')}\nPreferred start: ${values.get('timeline') || ''}\n\n${values.get('idea') || ''}`;
+  $('#contactEmailFallback').href = 'mailto:mdshohidulislam25100@gmail.com?subject=' + encodeURIComponent('Emotive project enquiry') + '&body=' + encodeURIComponent(message);
+}
+$('#projectForm').addEventListener('input', updateEmailFallback);
+$('#projectForm').addEventListener('change', updateEmailFallback);
+$('#projectForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = event.currentTarget;
   if (!form.reportValidity()) return;
+  if (form.dataset.sending === 'true') return;
+  updateEmailFallback();
   const values = new FormData(form);
+  if (values.get('_honey')) return;
+  for (const name of ['name', 'idea']) {
+    if (!String(values.get(name) || '').trim()) {
+      form.elements[name].setCustomValidity('Please enter your ' + (name === 'name' ? 'name.' : 'message.'));
+      form.elements[name].reportValidity(); return;
+    }
+  }
   const date = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'Asia/Dhaka' }).format(new Date());
-  const text = `EMOTIVE — PROJECT BRIEF\nIntelligence with a human touch.\n\nCreated: ${date}\n\nName: ${values.get('name').trim()}\nEmail: ${values.get('email').trim()}\n\nInterested in:\n${values.getAll('services').map(value => '- ' + value).join('\n') || '- To be explored together'}\n\nThe idea:\n${values.get('idea').trim()}\n\nPreferred start:\n${values.get('timeline')}\n\nNext steps:\n1. Review and refine this idea.\n2. Identify the people, data and tools involved.\n3. Agree a scope, deliverables and evaluation criteria.\n\nThis brief was created locally in your browser. No message was sent.\n`;
+  const text = `EMOTIVE — PROJECT BRIEF\nIntelligence with a human touch.\n\nCreated: ${date}\n\nName: ${values.get('name').trim()}\nEmail: ${values.get('email').trim()}\n\nInterested in:\n${values.getAll('services').map(value => '- ' + value).join('\n') || '- To be explored together'}\n\nThe idea:\n${values.get('idea').trim()}\n\nPreferred start:\n${values.get('timeline')}\n\nNext steps:\n1. Review and refine this idea.\n2. Identify the people, data and tools involved.\n3. Agree a scope, deliverables and evaluation criteria.\n\nA copy of your enquiry to Emotive: mdshohidulislam25100@gmail.com.\n`;
   if (briefUrl) URL.revokeObjectURL(briefUrl);
   briefUrl = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
   $('#downloadBrief').href = briefUrl;
-  form.hidden = true;
-  $('#briefResult').hidden = false;
-  $('#downloadBrief').focus();
+  const submit = form.querySelector('[type=submit]');
+  const status = $('#contactStatus');
+  form.dataset.sending = 'true'; submit.disabled = true; submit.textContent = 'Sending…';
+  status.textContent = 'Sending your message…';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch('https://formsubmit.co/ajax/mdshohidulislam25100@gmail.com', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, signal: controller.signal,
+      body: JSON.stringify({ name: values.get('name').trim(), email: values.get('email').trim(), message: values.get('idea').trim(), services: values.getAll('services').join(', ') || 'To be explored', timeline: values.get('timeline'), _subject: 'New Emotive project enquiry', _template: 'table', _honey: '' })
+    });
+    const result = await response.json();
+    if (!response.ok || ![true, 'true'].includes(result.success)) throw new Error('not accepted');
+    form.hidden = true; $('#briefResult').hidden = false; $('#downloadBrief').focus();
+    status.textContent = '';
+  } catch {
+    status.textContent = 'Your message could not be confirmed. Your text is still here. Try again, or use the email link below.';
+  } finally {
+    clearTimeout(timeout); delete form.dataset.sending; submit.disabled = false; submit.innerHTML = 'Send message <span>↗</span>';
+  }
 });
+$('#projectForm').addEventListener('input', event => { if (event.target.setCustomValidity) event.target.setCustomValidity(''); });
 $('#editBrief').addEventListener('click', () => {
+  $('#projectForm').reset();
   $('#briefResult').hidden = true;
   $('#projectForm').hidden = false;
-  $('#projectForm input').focus();
+  $('#projectForm input[name=name]').focus();
 });
 
 const concepts = {
