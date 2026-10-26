@@ -1,0 +1,9 @@
+{
+  "name": "emotive-ai-studio",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An immersive AI agency studio with interactive 3D and a flowing ink cursor.",
+  "engines": { "node": ">=20" },
+  "scripts": { "test": "node --test tests/*.test.js", "check": "node scripts/check-site.mjs", "build": "npm test && npm run check" }
+}
