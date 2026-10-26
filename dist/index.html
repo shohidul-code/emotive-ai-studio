@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10091c">
+  <meta name="description" content="Emotive is an independent IT and AI agency. We turn ambitious ideas into intelligent digital experiences with a human touch.">
+  <meta property="og:type" content="website">
+  <meta name="color-scheme" content="dark light">
+  <meta property="og:title" content="Emotive — Intelligence with a human touch">
+  <meta property="og:description" content="AI, software and digital experiences. Built around people.">
+  <title>About Emotive — IT, AI & Digital Experiences</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" href="/assets/instrument-serif-400-normal.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/assets/instrument-serif-400-italic.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <canvas id="fluidCanvas" class="fluid-canvas" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#story">Skip to content</a>
+  <div class="scene-wrap" id="sceneWrap" aria-hidden="true">
+    <div class="scene-fallback"><div class="fallback-shelf"></div><div class="fallback-table"></div><div class="fallback-orb"></div></div>
+    <canvas id="studioCanvas"></canvas>
+    <div class="scene-shade"></div><div class="grain"></div>
+  </div>
+
+  <header class="header" id="header">
+    <a class="wordmark" href="#top" aria-label="Emotive home">əmoti<span>ve</span><sup>®</sup></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="active" href="#top" data-nav="about">About</a><a href="#work" data-nav="work">Work</a><button data-open-project data-nav="contact">Contact</button>
+    </nav>
+    <div class="header-tools">
+      <button class="settings-trigger mono" id="settingsTrigger" aria-label="Settings" aria-expanded="false" aria-controls="settingsPanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-1 3-3 1-2 3 2 3v4l4 1 3 3 3-3 4-1v-4l2-3-2-3-3-1-1-3h-6Z"/><circle cx="12" cy="11.5" r="3"/></svg><span>Settings</span></button>
+      <button class="sound-button" id="soundToggle" aria-label="Enable nasheed humming" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-off-mark" d="m16 9 5 6m0-6-5 6"/><path class="sound-on-mark" d="M15 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></svg></button>
+    </div>
+    <button class="glass-button talk-button" data-open-project>Let's talk <span>↳</span></button>
+    <button class="mobile-menu-button mono" id="mobileMenuButton" aria-expanded="false" aria-controls="mobileNav">Menu <span>☰</span></button>
+  </header>
+
+  <aside class="settings-panel" id="settingsPanel" aria-label="Experience settings" hidden>
+    <div class="panel-heading mono">Make yourself at home <button id="closeSettings" aria-label="Close settings">×</button></div>
+    <div class="setting-row"><span>Nasheed humming <small>Your selected track · YouTube</small></span><button class="switch" id="settingsSound" aria-label="Nasheed humming" role="switch" aria-checked="false"><span></span></button></div>
+    <div class="setting-row"><span>Light studio</span><button class="switch" id="themeToggle" aria-label="Light studio" role="switch" aria-checked="false"><span></span></button></div>
+    <div class="setting-row"><span>Motion</span><button class="switch" id="motionToggle" aria-label="Motion" role="switch" aria-checked="true"><span></span></button></div>
+    <div class="setting-row"><span>Fluid cursor</span><button class="switch" id="fluidToggle" aria-label="Fluid cursor" role="switch" aria-checked="true"><span></span></button></div>
+    <div class="setting-row"><label for="qualitySelect">Visual quality</label><select id="qualitySelect"><option value="high">High</option><option value="eco">Eco</option></select></div>
+    <p class="sound-credit"><a href="https://youtu.be/XOVHMU_K7no" target="_blank" rel="noopener">Emotional Famous Background Nasheed extended ↗</a><br>DefiniteTruth · streamed through YouTube.<br>Internet access required. Press Play in the player if prompted.</p>
+    <p class="audio-notice" id="audioNotice" role="status"></p>
+  </aside>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden><a href="#top">01 <span>About</span> ↗</a><a href="#work">02 <span>Work</span> ↗</a><button data-open-project>03 <span>Contact</span> ↗</button></nav>
+
+  <main>
+    <div id="top" class="intro">
+      <section class="chapter hero" data-chapter="0" aria-labelledby="heroTitle">
+        <div class="room-hint mono"><span class="live-dot"></span> An independent IT & AI agency <span class="hint-drag">/ Move to explore</span></div>
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow">Hi. We're Emotive — and we believe<br>intelligence should feel human</p>
+          <h1 id="heroTitle"><span class="title-line">People don’t</span><span class="title-line">remember technology <b class="turn-arrow">↳</b></span><span class="title-line indent-one"><b class="left-arrow">↪</b> People remember</span><span class="title-line indent-two">how it made them <em>feel</em></span></h1>
+        </div>
+        <div class="hero-bottom mono"><a href="#chapter2">Scroll to get to know us <span>↓</span></a><button id="exploreRoom">Explore the room <span>⤢</span></button></div>
+      </section>
+      <section id="chapter2" class="chapter statement-chapter" data-chapter="1" aria-labelledby="studioTitle">
+        <p class="eyebrow">The intersection</p><h2 id="studioTitle">We’re a studio<br>building intelligence<br><span class="inset">↪ with a human <em>touch</em></span></h2><p class="chapter-note">We bring AI, software and thoughtful design together — for people with an idea worth bringing to life.</p>
+      </section>
+      <section class="chapter statement-chapter feeling-chapter" data-chapter="2" aria-labelledby="feelingTitle">
+        <p class="eyebrow">The feeling</p><h2 id="feelingTitle">A good tool<br>gets the job done<br><span class="inset">↪ A great one</span><br><em>opens possibilities</em></h2><p class="chapter-note">Less friction. More possibility. We care as much about the experience of using technology as the technology itself.</p>
+      </section>
+      <section class="chapter statement-chapter why-chapter" data-chapter="3" aria-labelledby="whyTitle">
+        <p class="eyebrow">How we think</p><h2 id="whyTitle">It starts<br><span class="inset">with <em>why</em></span></h2><p class="chapter-note">Before a line of code or a model, we ask what needs to change. Your people, your problem, your purpose. The right technology follows.</p><a class="round-arrow" href="#story" aria-label="Read our story">↙</a>
+      </section>
+    </div>
+
+    <section id="story" class="light-section story-section">
+      <div class="section-top mono"><span>[ 01 / Our story ]</span><span>Curiosity is the starting point</span></div>
+      <div class="story-layout"><div class="story-text"><h2 class="serif-title reveal">Built from<br>↪ <em>curiosity</em></h2><div class="story-paragraphs reveal"><p>What happens when you put a curious mind, a real problem and the right technology in the same room?</p><p>That question is the spirit of Emotive. An independent IT and AI agency, connecting the precision of engineering with the instinct of design.</p><p>We turn complicated ideas into useful software. Websites that invite exploration. AI that supports real work. Systems that make the everyday a little easier.</p></div><div class="small-manifesto reveal"><span class="eyebrow">No shortcuts. Just intention.</span><p>Thought through.<br>Built with care.<br>Made for <em>people.</em></p></div></div><figure class="story-photo editorial-photo tilt-surface reveal"><img src="/assets/portrait-reflection.png" alt="Reflective close-up of the person behind Emotive in natural light, beside a mirror" loading="lazy" width="764" height="508"><figcaption class="mono"><span>The human side of technology</span><span>Dhaka, Bangladesh ↗</span></figcaption><span class="photo-stamp">A human<br><em>perspective.</em></span></figure></div>
+    </section>
+
+    <section id="people" class="people-section light-section">
+      <div class="section-top mono"><span>[ 02 / The human element ]</span><span>People before pixels</span></div>
+      <h2 class="people-heading reveal">↪ Behind every good system,<br>there’s a <em>curious mind.</em></h2>
+      <div class="people-grid"><div class="portrait-stage editorial-portrait tilt-surface reveal" id="portraitStage"><span class="portrait-label mono">[ Human, by design ]</span><img id="founderPortrait" src="/assets/portrait-thoughtful.png" alt="A thoughtful seated portrait of the person behind Emotive in a navy blazer" loading="lazy" width="767" height="507"><div class="portrait-controls"><button class="active" data-portrait="thoughtful" aria-pressed="true">01 / Thoughtful</button><button data-portrait="presence" aria-pressed="false">02 / Presence</button></div></div><div class="people-copy reveal"><span class="eyebrow">[ Ideas → intelligence ]</span><h3>The mind<br>behind <em>Emotive</em></h3><p>A human perspective, connecting strategy, design and engineering. Because building something meaningful takes more than knowing what technology can do. It takes understanding what people actually need.</p><p>From your first “what if” to the final experience, we keep the conversation clear and the craft personal.</p><button class="text-link" data-open-project>Let’s make something matter <span>↗</span></button><div class="expertise-tags mono"><span>AI & ML</span><span>Software</span><span>Digital craft</span></div></div></div>
+      <div class="portrait-editorial-grid" aria-label="More human perspectives">
+        <figure class="portrait-editorial-card tilt-surface reveal"><img src="/assets/portrait-perspective.png" alt="Profile portrait framed by a curved architectural opening" loading="lazy" width="763" height="507"><figcaption class="mono"><span>[ 01 / Perspective ]</span><span>A different way of seeing.</span></figcaption></figure>
+        <figure class="portrait-editorial-card tilt-surface reveal"><img src="/assets/portrait-presence.png" alt="Portrait looking toward the camera beneath a soft circular light" loading="lazy" width="768" height="510"><figcaption class="mono"><span>[ 02 / Presence ]</span><span>The person behind the work.</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section id="services" class="services-section light-section">
+      <div class="section-top mono"><span>[ 03 / What we do ]</span><span>From possibility to product</span></div>
+      <h2 class="serif-title reveal">Many disciplines.<br>↪ One <em>connected idea.</em></h2>
+      <div class="services-list">
+        <details class="service-row reveal" open><summary><span class="mono">(001)</span><h3>Artificial intelligence</h3><span class="service-plus">↗</span></summary><div class="service-detail"><p>Useful intelligence, woven into your work. Knowledge assistants, retrieval augmented generation, computer vision and machine learning applications.</p><span class="mono">LLMs / RAG / ML / Computer vision</span></div></details>
+        <details class="service-row reveal"><summary><span class="mono">(002)</span><h3>Web & software engineering</h3><span class="service-plus">↗</span></summary><div class="service-detail"><p>Thoughtful websites, reliable applications and connected platforms. Built around the people who will use them, from the first screen to the last detail.</p><span class="mono">Websites / Web apps / APIs / Cloud</span></div></details>
+        <details class="service-row reveal"><summary><span class="mono">(003)</span><h3>Intelligent automation</h3><span class="service-plus">↗</span></summary><div class="service-detail"><p>Connect the tools you already use. Simplify repetitive processes, bring information together and give your team more time for work that matters.</p><span class="mono">Workflows / Integrations / Data systems</span></div></details>
+        <details class="service-row reveal"><summary><span class="mono">(004)</span><h3>Digital experiences</h3><span class="service-plus">↗</span></summary><div class="service-detail"><p>Interfaces with a point of view. Expressive design, considered motion and interactive 3D that make complex ideas feel simple.</p><span class="mono">UI & UX / Design systems / 3D & WebGL</span></div></details>
+      </div>
+    </section>
+
+    <section id="work" class="work-section">
+      <div class="section-top mono"><span>[ 04 / The possibility lab ]</span><span>Concept explorations / Not client case studies</span></div>
+      <div class="work-heading"><h2 class="serif-title reveal">What if,<br>↪ made <em>real.</em></h2><p>Three directions at the intersection of<br>intelligence, engineering and experience.<br><span class="mono">Select a concept to look closer ↘</span></p></div>
+      <div class="work-grid">
+        <button class="project-card tilt-surface" data-project="knowledge"><div class="project-visual visual-knowledge"><div class="knowledge-orb"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="visual-code mono">Knowledge, connected.</span><span class="project-open">↗</span></div><div class="project-caption"><span class="mono">Concept / 01 · AI & RAG</span><h3>A second brain.</h3><span>Find the answer in your own knowledge.</span></div></button>
+        <button class="project-card tilt-surface" data-project="automation"><div class="project-visual visual-automation"><div class="workflow-art"><i>01</i><b>→</b><i>✳</i><b>→</b><i>✓</i></div><div class="flow-lines"></div><span class="visual-code mono">Make room for what matters.</span><span class="project-open">↗</span></div><div class="project-caption"><span class="mono">Concept / 02 · Automation</span><h3>Work, in flow.</h3><span>Less repetition. More room to think.</span></div></button>
+        <button class="project-card tilt-surface" data-project="experience"><div class="project-visual visual-experience"><div class="wire-sphere"><i></i><i></i><i></i><i></i><i></i></div><span class="visual-code mono">A different dimension.</span><span class="project-open">↗</span></div><div class="project-caption"><span class="mono">Concept / 03 · Interactive 3D</span><h3>Beyond the screen.</h3><span>A place to explore, not just a page to read.</span></div></button>
+      </div>
+    </section>
+
+    <section class="approach-section light-section" id="approach"><div class="section-top mono"><span>[ 05 / Our approach ]</span><span>Good questions. Thoughtful answers.</span></div><div class="approach-layout"><h2 class="serif-title reveal">Where<br>↪ the best<br>ideas <em>start.</em></h2><div class="approach-copy reveal"><p>You don’t need every answer before we talk. A problem, a possibility or a feeling that something could be better is enough.</p><ol><li><span class="mono">01 / Understand</span><p>Find the real problem and define what a useful result looks like.</p></li><li><span class="mono">02 / Explore</span><p>Make the idea tangible. Test the experience before committing to a full build.</p></li><li><span class="mono">03 / Build & refine</span><p>Engineer carefully, test with real scenarios and keep improving the details.</p></li></ol><button class="text-link" data-open-project>Tell us what you're thinking <span>↗</span></button></div></div></section>
+
+    <section id="faq" class="faq-section light-section"><div class="faq-layout"><h2 class="serif-title">FAQ<span>(<em>s</em>)</span></h2><div class="faq-list">
+      <details><summary><span class="mono">01</span><h3>What does Emotive do?</h3><span class="faq-plus">+</span></summary><p>We bring together IT engineering, AI, automation and digital design. That can mean a website, an AI powered application, a knowledge assistant or a connected business workflow.</p></details>
+      <details><summary><span class="mono">02</span><h3>Can we start with just an idea?</h3><span class="faq-plus">+</span></summary><p>Yes. Start with the problem you want to solve or the experience you want to create. A discovery conversation helps turn that starting point into a focused brief and practical next steps.</p></details>
+      <details><summary><span class="mono">03</span><h3>How do you approach AI reliability?</h3><span class="faq-plus">+</span></summary><p>We define the limits before the features. Appropriate data, evaluation examples, clear uncertainty and human review matter. We choose the simplest approach that can meet the project's needs.</p></details>
+      <details><summary><span class="mono">04</span><h3>Does interactive 3D work on mobile?</h3><span class="faq-plus">+</span></summary><p>This studio adapts to smaller screens and touch. Open Settings to switch to Eco quality or reduce motion. Devices without WebGL still receive a readable, usable page.</p></details>
+      <details><summary><span class="mono">05</span><h3>How much does a project cost?</h3><span class="faq-plus">+</span></summary><p>Scope comes first. The complexity, integrations, content and testing requirements determine the work. A project brief helps establish a realistic scope before any commitment.</p></details>
+      <details><summary><span class="mono">06</span><h3>What is the sound on this website?</h3><span class="faq-plus">+</span></summary><p>Our selected track is “Emotional Famous Background Nasheed extended” by DefiniteTruth. Enable the speaker icon to open its YouTube player. Playback requires internet access and may need a tap on Play. Use the speaker icon or the player’s close button to stop it.</p></details>
+    </div></div></section>
+
+    <footer class="footer" id="contact"><div class="section-top mono"><span>Stay curious. Stay human.</span><span>Dhaka, Bangladesh / <time id="dhakaTime"></time></span></div><div class="footer-main"><h2>Let’s build<br><span>↪ something</span><br><em>meaningful.</em></h2><div class="footer-invite"><p>An idea, a question,<br>a new possibility?<br>Let’s give it a starting point.</p><button class="glass-button" data-open-project>Start a project <span>↗</span></button></div></div><div class="footer-bottom"><a class="wordmark" href="#top">əmoti<span>ve</span><sup>®</sup></a><p class="mono">IT + AI + a human touch.</p><div class="footer-links mono"><a href="#top">About</a><a href="#work">Work</a><button data-open-project>Contact</button><button id="creditsButton">Credits</button></div></div><div class="footer-legal mono"><span>© <span id="currentYear">2026</span> Emotive</span><span>Designed to make you feel.</span><a href="#top">Back to top ↑</a></div></footer>
+  </main>
+
+  <div class="room-mode-controls" id="roomModeControls" hidden><div class="mono">Your space to explore.<span>Drag to look around / Arrow keys to move</span></div><button class="glass-button" id="resetView">Reset view ↺</button><button class="glass-button" id="exitRoom">Back to the story ×</button></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <div class="cursor-hint mono" id="cursorHint" aria-hidden="true">Drag</div>
+  <button class="guide-orb" id="guideOrb" aria-label="Open studio guide" aria-expanded="false" aria-controls="guidePanel"><span></span></button>
+  <aside class="guide-panel" id="guidePanel" hidden><div class="panel-heading mono">A little guidance <button id="closeGuide" aria-label="Close studio guide">×</button></div><p>Where would you like to go?</p><a href="#services">Explore our capabilities ↗</a><a href="#work">Visit the possibility lab ↗</a><button data-open-project>Bring an idea to life ↗</button><button id="guideExplore">Look around the 3D studio ⤢</button></aside>
+  <div class="toast mono" id="toast" role="status"></div>
+
+  <dialog id="projectDialog" class="project-dialog"><button class="dialog-close" data-close aria-label="Close project brief">×</button><span class="eyebrow">A good conversation starts somewhere</span><h2>What are you<br><em>thinking?</em></h2><p class="dialog-intro">Shape your idea into a brief you can save and share.</p><form id="projectForm"><div class="form-row"><label>Your name<input name="name" autocomplete="name" placeholder="What should we call you?" required maxlength="100"></label><label>Your email<input type="email" name="email" autocomplete="email" placeholder="you@company.com" required maxlength="200"></label></div><fieldset><legend>What do you have in mind?</legend><div class="service-options"><label><input type="checkbox" name="services" value="AI & machine learning"><span>AI & machine learning</span></label><label><input type="checkbox" name="services" value="Web & software"><span>Web & software</span></label><label><input type="checkbox" name="services" value="Automation"><span>Automation</span></label><label><input type="checkbox" name="services" value="Digital experience"><span>Digital experience</span></label></div></fieldset><label>A little about the idea<textarea name="idea" placeholder="The problem, the possibility, the what if…" rows="3" required maxlength="5000"></textarea></label><label>When would you like to begin?<select name="timeline"><option>Let’s explore first</option><option>As soon as possible</option><option>Within 1–3 months</option><option>Later this year</option></select></label><div class="form-footer"><span>Your details stay in this browser.<br>This creates a file; it does not send a message.</span><button type="submit" class="purple-button">Create my brief <span>↗</span></button></div></form><div id="briefResult" class="brief-result" hidden><span class="success-mark">✓</span><h3>An idea, with a starting point.</h3><p>Your project brief is ready. Download it to review, edit or share with your team.</p><a id="downloadBrief" class="purple-button" download="Emotive-Project-Brief.txt">Download project brief ↗</a><button id="editBrief" class="text-link">Keep shaping the idea ↶</button></div></dialog>
+  <dialog id="workDialog" class="work-dialog"><button class="dialog-close" data-close aria-label="Close concept">×</button><span class="eyebrow" id="workCategory"></span><h2 id="workTitle"></h2><p id="workDescription" class="work-description"></p><div class="concept-details" id="conceptDetails"></div><p class="concept-disclaimer mono">An illustrative concept, not a delivered client project.</p><button class="purple-button" id="discussConcept">Explore an idea like this ↗</button></dialog>
+  <aside id="nasheedPlayer" class="nasheed-player" aria-label="Selected nasheed player" hidden>
+    <div class="nasheed-player-heading"><span class="mono">Your selected nasheed</span><button id="closeNasheed" aria-label="Stop and close nasheed player">×</button></div>
+    <div id="nasheedPlayerHost" class="nasheed-player-host"></div>
+    <div class="nasheed-player-footer"><p id="nasheedStatus" role="status" aria-live="polite"></p><a href="https://youtu.be/XOVHMU_K7no" target="_blank" rel="noopener">Open on YouTube ↗</a></div>
+  </aside>
+  <script type="module" src="/app.js"></script>
+  <script type="module" src="/fluid-cursor.js"></script>
+  <script type="module" src="/studio.js"></script>
+</body>
+</html>
