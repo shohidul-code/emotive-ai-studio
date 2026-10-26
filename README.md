@@ -17,7 +17,7 @@ An independent IT and AI agency website built as an explorable digital studio. E
 | Adaptive rendering | WebGL 2 on supported devices; a perspective Canvas renderer of the same scene when WebGL is unavailable. |
 | Personal photography | Four owner-supplied portraits used in the story, founder section, editorial pair and 3D wall frame. |
 | Visitor controls | Light studio, motion, fluid cursor and High/Eco rendering quality. |
-| Selected nasheed | The owner's exact YouTube selection, loaded only after sound is enabled, with visible native player controls. |
+| Selected nasheed | A licensed vocal nasheed MP3 with native audio controls, looping and opt-in playback. |
 | Project conversations | Three clearly labeled concept explorations and a local, downloadable project-brief builder. |
 | Responsive foundation | Mobile navigation, semantic sections, accessible dialogs, keyboard controls and reduced-motion support. |
 
@@ -62,13 +62,15 @@ The fluid is a real simulated dye field, not a collection of cursor-following ci
 
 Pointer events are passive, queued input is bounded, and the overlay has `pointer-events: none`. Native links, text selection, forms and room dragging remain available. The animation stops when dye dissipates, motion is disabled or the document becomes hidden. Eco caps fluid updates at 30fps. The site honors the initial system reduced-motion setting and responds when that preference changes; visitors can also control motion in Settings.
 
-### Audio and privacy
+### Audio and contact privacy
 
-Audio starts **off**. Enabling sound loads the official privacy-enhanced YouTube player for [`XOVHMU_K7no`](https://youtu.be/XOVHMU_K7no): *Emotional Famous Background Nasheed extended* by DefiniteTruth. The player is visible, loops the selected video and begins at a quiet volume. It may require a second press on YouTube's Play control. Closing it destroys the iframe. No video is extracted, downloaded or rehosted, and no Runway service is used.
+Audio starts **off**. The native HTML audio player plays the locally hosted, approximately 51-second **Background Nasheed 6** by **I_read_quran**, sourced from [Pixabay](https://pixabay.com/sound-effects/musical-background-nasheed-6-504317/) under the [Pixabay Content License](https://pixabay.com/service/license-summary/). It loops at a quiet initial volume and pauses when the page is hidden. No YouTube iframe or third-party playback script is used. Credit and license links are visible in Settings and `dist/assets/licenses/NASHEED-CREDIT.txt`. This recording is integrated into the website experience; do not redistribute the MP3 on a standalone basis.
 
-YouTube scripts and frames are absent until a visitor enables sound. YouTube controls availability, advertising, regional restrictions and streaming behavior. The site includes no first-party analytics.
+The contact form sends a structured message (name, reply email, selected services, preferred timeline and idea) to **mdshohidulislam25100@gmail.com** using FormSubmit's AJAX endpoint. The visitor sees the destination and processing service before submitting. It includes native validation, whitespace validation, a honeypot, duplicate-submit prevention, a 20-second timeout, preserved text on failure and an optional downloadable copy after acceptance. Success means the form service accepted the request; inbox delivery is not independently asserted.
 
-The project form creates a text file **locally in the browser**. It does not send email, upload personal information or store a server record. A real contact destination must be connected before offering message delivery. The sample projects are illustrative concepts, not client claims.
+**Owner setup:** FormSubmit requires the destination mailbox to activate the form from its verification email before forwarding enquiries. No email API credential is stored in the client. The prefilled direct-email fallback opens the visitor's mail app, where they review and send the message themselves. Supabase was evaluated, but it still needs an external mail provider and a verified sender; the existing unrelated Supabase project is unchanged.
+
+The site includes no first-party analytics. Form submissions are processed by FormSubmit. There is no contact database in this project.
 
 ## Deploy to Vercel
 
@@ -90,20 +92,21 @@ Keep the existing deployment-protection policy. After Git integration is connect
 - Adjust the palette and layouts in `styles.css`; dye colors and opacity live in `fluid-cursor.js`.
 - Tune the room, lights and camera paths in `studio.js`.
 - Change the selected video ID in `nasheed-player.js` and update the visible credits and FAQ together.
-- Connect a real contact destination deliberately; do not relabel the brief builder as a sent message without implementing delivery.
+- Update the FormSubmit destination in both `index.html` and `app.js` together, then activate the new mailbox and verify delivery.
 
 ## Verification
 
-Checked on 26 October 2026:
+Updated checks on 27 October 2026:
 
 - All automated simulation and source-validation checks pass.
 - Desktop page and embedded 390 × 844 mobile viewport inspected; mobile content has no horizontal overflow.
 - Fluid output, on/off switch, motion interlock, Eco resolution and pointer pass-through exercised. An observed High-quality fluid frame took about 1.7ms in the test browser; this is a spot measurement, not a device-wide performance guarantee.
 - Studio renders through the software fallback; explore, keyboard movement, reset, exit and light theme exercised.
 - Portrait switches, concept dialog, project brief creation/editing, FAQs and mobile navigation exercised.
-- Exact selected YouTube iframe loads only on opt-in; closing it removes the iframe and resets audio controls.
+- Native nasheed playback verified: duration 50.886531 seconds, readyState 4, paused false and advancing playback time. Pause/close resets the sound controls.
+- Contact submission was exercised; the provider timed out in the test environment. Failure retained visitor text and restored the submit button. Actual inbox delivery and recipient activation remain unverified.
 
-**Verification limits:** the test browser disables WebGL, so its GPU rendering path could not be visually tested. YouTube initialized and exposed the selected track, but the test browser buffered without confirming audible playback. Real touch hardware and screen-reader use were not tested. These are environment limits, not claims of full cross-device certification.
+**Verification limits:** the test browser disables WebGL, so its GPU rendering path could not be visually tested. The contact provider timed out in this environment, so inbox delivery requires owner activation and a subsequent delivery check. Real touch hardware and screen-reader use were not tested. These are environment limits, not claims of full cross-device certification.
 
 ## Credits and asset rights
 
@@ -112,6 +115,6 @@ Checked on 26 October 2026:
 - Earlier original/generated portraits remain in `dist/assets/` but are not referenced by the current page.
 - Three.js r169: MIT — see [THREE-LICENSE.txt](THREE-LICENSE.txt).
 - Instrument Serif, Inter and IBM Plex Mono: SIL Open Font License — see the included OFL files and `dist/assets/licenses/`.
-- Nasheed streamed through the official YouTube embed, credited above and in Settings.
+- Licensed nasheed recording: Background Nasheed 6, I_read_quran, Pixabay Content License. Credit and source links above and in Settings.
 
 Third-party assets retain their respective rights. No blanket redistribution license is granted for the owner's portraits, branding or the selected nasheed.
