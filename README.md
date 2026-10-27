@@ -17,7 +17,7 @@ An independent IT and AI agency website built as an explorable digital studio. E
 | Adaptive rendering | WebGL 2 on supported devices; a perspective Canvas renderer of the same scene when WebGL is unavailable. |
 | Personal photography | Four owner-supplied portraits used in the story, founder section, editorial pair and 3D wall frame. |
 | Visitor controls | Light studio, motion, fluid cursor and High/Eco rendering quality. |
-| Selected nasheed | A licensed vocal nasheed MP3 with native audio controls, looping and opt-in playback. |
+| Selected nasheed | A licensed vocal nasheed MP3 with unobtrusive looping and opt-in playback. |
 | Project conversations | Three clearly labeled concept explorations and a local, downloadable project-brief builder. |
 | Responsive foundation | Mobile navigation, semantic sections, accessible dialogs, keyboard controls and reduced-motion support. |
 
@@ -64,7 +64,7 @@ Pointer events are passive, queued input is bounded, and the overlay has `pointe
 
 ### Audio and contact privacy
 
-Audio starts **off**. The native HTML audio player plays the locally hosted, approximately 51-second **Background Nasheed 6** by **I_read_quran**, sourced from [Pixabay](https://pixabay.com/sound-effects/musical-background-nasheed-6-504317/) under the [Pixabay Content License](https://pixabay.com/service/license-summary/). It loops at a quiet initial volume and pauses when the page is hidden. No YouTube iframe or third-party playback script is used. Credit and license links are visible in Settings and `dist/assets/licenses/NASHEED-CREDIT.txt`. This recording is integrated into the website experience; do not redistribute the MP3 on a standalone basis.
+Audio starts **off**. The background audio plays the locally hosted, approximately 51-second **Background Nasheed 6** by **I_read_quran**, sourced from [Pixabay](https://pixabay.com/sound-effects/musical-background-nasheed-6-504317/) under the [Pixabay Content License](https://pixabay.com/service/license-summary/). It loops at a quiet initial volume and pauses when the page is hidden. No YouTube iframe or third-party playback script is used. Credit and license links are visible in Settings and `dist/assets/licenses/NASHEED-CREDIT.txt`. This recording is integrated into the website experience; do not redistribute the MP3 on a standalone basis.
 
 The contact form sends a structured message (name, reply email, selected services, preferred timeline and idea) to **mdshohidulislam25100@gmail.com** using FormSubmit's AJAX endpoint. The visitor sees the destination and processing service before submitting. It includes native validation, whitespace validation, a honeypot, duplicate-submit prevention, a 20-second timeout, preserved text on failure and an optional downloadable copy after acceptance. Success means the form service accepted the request; inbox delivery is not independently asserted.
 
@@ -103,7 +103,7 @@ Updated checks on 27 October 2026:
 - Fluid output, on/off switch, motion interlock, Eco resolution and pointer pass-through exercised. An observed High-quality fluid frame took about 1.7ms in the test browser; this is a spot measurement, not a device-wide performance guarantee.
 - Studio renders through the software fallback; explore, keyboard movement, reset, exit and light theme exercised.
 - Portrait switches, concept dialog, project brief creation/editing, FAQs and mobile navigation exercised.
-- Native nasheed playback verified: duration 50.886531 seconds, readyState 4, paused false and advancing playback time. Pause/close resets the sound controls.
+- Native nasheed playback verified: duration 50.886531 seconds, readyState 4, paused false and advancing playback time. The speaker button and Settings switch control playback without showing a player panel.
 - Contact submission was exercised; the provider timed out in the test environment. Failure retained visitor text and restored the submit button. Actual inbox delivery and recipient activation remain unverified.
 
 **Verification limits:** the test browser disables WebGL, so its GPU rendering path could not be visually tested. The contact provider timed out in this environment, so inbox delivery requires owner activation and a subsequent delivery check. Real touch hardware and screen-reader use were not tested. These are environment limits, not claims of full cross-device certification.
