@@ -1,6 +1,4 @@
 const audio = document.querySelector('#nasheedAudio');
-const panel = document.querySelector('#nasheedPlayer');
-const status = document.querySelector('#nasheedStatus');
 const button = document.querySelector('#soundToggle');
 const settings = document.querySelector('#settingsSound');
 const notice = document.querySelector('#audioNotice');
@@ -16,14 +14,12 @@ function busy(value) {
   button.setAttribute('aria-busy', String(value));
   settings.setAttribute('aria-busy', String(value));
 }
-function stop(close = false) {
+function stop() {
   session++; requested = false; resume = false; audio.pause(); busy(false); sync(false);
-  if (close) panel.hidden = true;
 }
 async function start() {
   const id = ++session;
-  requested = true; panel.hidden = false; busy(true); notice.textContent = '';
-  status.textContent = 'Loading the nasheed…';
+  requested = true; busy(true); notice.textContent = '';
   try {
     await audio.play();
     if (id !== session) return;
@@ -31,20 +27,21 @@ async function start() {
   } catch {
     if (id !== session) return;
     requested = false; busy(false); sync(false);
-    status.textContent = 'Playback could not start. Try Play below or check your connection.';
-    notice.textContent = status.textContent;
+    notice.textContent = 'Playback could not start. Please try the sound button again.';
+    document.querySelector('#toast').textContent = notice.textContent;
+    document.querySelector('#toast').classList.add('visible');
+    setTimeout(() => document.querySelector('#toast').classList.remove('visible'), 3800);
   }
 }
-function toggle() { if (requested || !audio.paused) stop(true); else start(); }
+function toggle() { if (requested || !audio.paused) stop(); else start(); }
 button.addEventListener('click', toggle);
 settings.addEventListener('click', toggle);
-document.querySelector('#closeNasheed').addEventListener('click', () => stop(true));
-audio.addEventListener('playing', () => { requested = true; sync(true); busy(false); status.textContent = 'Playing Background Nasheed 6 · loops automatically.'; });
-audio.addEventListener('pause', () => { requested = false; sync(false); busy(false); status.textContent = 'Paused. Press Play to continue.'; });
-audio.addEventListener('waiting', () => { if (requested) { busy(true); status.textContent = 'Buffering the nasheed…'; } });
-audio.addEventListener('error', () => { stop(); status.textContent = 'Audio unavailable. Please try again.'; notice.textContent = status.textContent; });
+audio.addEventListener('playing', () => { requested = true; sync(true); busy(false); });
+audio.addEventListener('pause', () => { requested = false; sync(false); busy(false); });
+audio.addEventListener('waiting', () => { if (requested) { busy(true); } });
+audio.addEventListener('error', () => { stop(); notice.textContent = 'Audio unavailable. Please try again.'; });
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) { resume = !audio.paused; audio.pause(); }
   else if (resume) { resume = false; start(); }
 });
-window.addEventListener('pagehide', () => stop(true));
+window.addEventListener('pagehide', () => stop());
