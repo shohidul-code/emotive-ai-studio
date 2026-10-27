@@ -222,10 +222,10 @@ function createStudio() {
   const lowTable=cylinder(.6,.6,.09,shelfMat,6.7,.45,-3.8);cylinder(.055,.12,.4,legMat,6.7,.2,-3.8);
   vase(6.7,.51,-3.8,.43,ceramicMat);
 
-  // A personal portrait is also physically framed inside the room.
-  box(2.75,1.85,.1,blackMat,9.0,3.25,-8.0);
-  const photoMat=new THREE.MeshStandardMaterial({color:'#c7bfd1',roughness:.8,side:THREE.DoubleSide});
-  const photo=mesh(new THREE.PlaneGeometry(2.6,1.7),photoMat);photo.position.set(9,3.25,-7.94);
+  // Place the founder portrait in the opening camera view, including narrow screens.
+  box(5.4,3.67,.1,blackMat,.5,4.5,-8.0);
+  const photoMat=new THREE.MeshBasicMaterial({color:'#ffffff',side:THREE.DoubleSide,toneMapped:false});
+  const photo=mesh(new THREE.PlaneGeometry(5.15,3.42),photoMat);photo.position.set(.5,4.5,-7.94);
   textureLoader.load('/assets/portrait-presence.png', texture=>{texture.colorSpace=THREE.SRGBColorSpace;photoMat.map=texture;photoMat.needsUpdate=true;});
   const posterCanvas=document.createElement('canvas');posterCanvas.width=320;posterCanvas.height=480;const posterCtx=posterCanvas.getContext('2d');
   posterCtx.fillStyle='#c7b4da';posterCtx.fillRect(0,0,320,480);posterCtx.fillStyle='#39214f';posterCtx.font='70px Georgia';posterCtx.fillText('what',28,150);posterCtx.font='italic 115px Georgia';posterCtx.fillText('if?',36,275);posterCtx.font='13px monospace';posterCtx.fillText('THINK LIKE A HUMAN.',28,410);
@@ -236,8 +236,8 @@ function createStudio() {
   const wallLogoCanvas=document.createElement('canvas');wallLogoCanvas.width=512;wallLogoCanvas.height=256;const logoCtx=wallLogoCanvas.getContext('2d');
   logoCtx.clearRect(0,0,512,256);logoCtx.fillStyle='#9e80bc';logoCtx.font='145px Georgia';logoCtx.textAlign='center';logoCtx.fillText('ə',256,178);
   const logoTexture=new THREE.CanvasTexture(wallLogoCanvas);logoTexture.colorSpace=THREE.SRGBColorSpace;
-  const logo=mesh(new THREE.PlaneGeometry(2.4,1.2),new THREE.MeshStandardMaterial({map:logoTexture,transparent:true,emissive:'#7a3bb6',emissiveIntensity:.2,roughness:.5}));logo.position.set(.5,3.35,-8.05);
-  const wallRing=mesh(new THREE.TorusGeometry(.78,.027,12,80),darkCeramic);wallRing.scale.y=1.25;wallRing.position.set(.5,3.4,-8.01);
+  const logo=mesh(new THREE.PlaneGeometry(2.4,1.2),new THREE.MeshStandardMaterial({map:logoTexture,transparent:true,emissive:'#7a3bb6',emissiveIntensity:.2,roughness:.5}));logo.position.set(9,3.35,-8.05);
+  const wallRing=mesh(new THREE.TorusGeometry(.78,.027,12,80),darkCeramic);wallRing.scale.y=1.25;wallRing.position.set(9,3.4,-8.01);
 
   const ambient = new THREE.HemisphereLight('#ceb8f1','#251130',1.25);scene.add(ambient);
   const key = new THREE.DirectionalLight('#dfcdf2',2.6);key.position.set(-2,8,6);key.castShadow=true;
