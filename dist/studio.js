@@ -108,7 +108,9 @@ function createStudio() {
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(0, -.035, 2);
   floor.castShadow = false;
-  box(36, 8, .3, wallMat, 0, 4, -8.3);
+  const backWall=box(36, 8, .3, wallMat, 0, 4, -8.3);
+  // Smaller wall faces keep the depth-sorted fallback behind wall artwork.
+  if(software){backWall.geometry.dispose();backWall.geometry=new THREE.BoxGeometry(36,8,.3,24,8,1);}
   box(.3, 8, 24, wallMat, -15.5, 4, 2);
   box(.3, 8, 24, wallMat, 15.5, 4, 2);
   box(36, .2, 26, panelMat, 0, 7.7, 3);
@@ -222,10 +224,10 @@ function createStudio() {
   const lowTable=cylinder(.6,.6,.09,shelfMat,6.7,.45,-3.8);cylinder(.055,.12,.4,legMat,6.7,.2,-3.8);
   vase(6.7,.51,-3.8,.43,ceramicMat);
 
-  // Place the founder portrait in the opening camera view, including narrow screens.
-  box(5.4,3.67,.1,blackMat,.5,4.5,-8.0);
+  // Hang the founder portrait above the AI sculpture on the right wall.
+  box(4.65,3.18,.1,blackMat,4.5,4.3,-8.0);
   const photoMat=new THREE.MeshBasicMaterial({color:'#ffffff',side:THREE.DoubleSide,toneMapped:false});
-  const photo=mesh(new THREE.PlaneGeometry(5.15,3.42),photoMat);photo.position.set(.5,4.5,-7.94);
+  const photo=mesh(new THREE.PlaneGeometry(4.4,2.93),photoMat);photo.position.set(4.5,4.3,-7.94);
   textureLoader.load('/assets/portrait-presence.png', texture=>{texture.colorSpace=THREE.SRGBColorSpace;photoMat.map=texture;photoMat.needsUpdate=true;});
   const posterCanvas=document.createElement('canvas');posterCanvas.width=320;posterCanvas.height=480;const posterCtx=posterCanvas.getContext('2d');
   posterCtx.fillStyle='#c7b4da';posterCtx.fillRect(0,0,320,480);posterCtx.fillStyle='#39214f';posterCtx.font='70px Georgia';posterCtx.fillText('what',28,150);posterCtx.font='italic 115px Georgia';posterCtx.fillText('if?',36,275);posterCtx.font='13px monospace';posterCtx.fillText('THINK LIKE A HUMAN.',28,410);
@@ -233,11 +235,13 @@ function createStudio() {
   box(1.15,1.65,.07,brassMat,11.15,3.35,-8.0);
   const poster=mesh(new THREE.PlaneGeometry(1.05,1.55),new THREE.MeshStandardMaterial({map:posterTexture,roughness:.9}));poster.position.set(11.15,3.35,-7.95);
 
-  const wallLogoCanvas=document.createElement('canvas');wallLogoCanvas.width=512;wallLogoCanvas.height=256;const logoCtx=wallLogoCanvas.getContext('2d');
-  logoCtx.clearRect(0,0,512,256);logoCtx.fillStyle='#9e80bc';logoCtx.font='145px Georgia';logoCtx.textAlign='center';logoCtx.fillText('ə',256,178);
+  const wallLogoCanvas=document.createElement('canvas');wallLogoCanvas.width=1024;wallLogoCanvas.height=384;const logoCtx=wallLogoCanvas.getContext('2d');
+  logoCtx.clearRect(0,0,1024,384);logoCtx.font='184px Georgia';logoCtx.textBaseline='middle';
+  const wordmarkLeft=(1024-logoCtx.measureText('əmotive').width)/2;
+  logoCtx.fillStyle='#eee2ff';logoCtx.fillText('əmoti',wordmarkLeft,200);
+  logoCtx.fillStyle='#a86bff';logoCtx.fillText('ve',wordmarkLeft+logoCtx.measureText('əmoti').width,200);
   const logoTexture=new THREE.CanvasTexture(wallLogoCanvas);logoTexture.colorSpace=THREE.SRGBColorSpace;
-  const logo=mesh(new THREE.PlaneGeometry(2.4,1.2),new THREE.MeshStandardMaterial({map:logoTexture,transparent:true,emissive:'#7a3bb6',emissiveIntensity:.2,roughness:.5}));logo.position.set(9,3.35,-8.05);
-  const wallRing=mesh(new THREE.TorusGeometry(.78,.027,12,80),darkCeramic);wallRing.scale.y=1.25;wallRing.position.set(9,3.4,-8.01);
+  const logo=mesh(new THREE.PlaneGeometry(4.4,1.65),new THREE.MeshBasicMaterial({map:logoTexture,transparent:true,toneMapped:false}));logo.position.set(.5,4.5,-7.7);
 
   const ambient = new THREE.HemisphereLight('#ceb8f1','#251130',1.25);scene.add(ambient);
   const key = new THREE.DirectionalLight('#dfcdf2',2.6);key.position.set(-2,8,6);key.castShadow=true;
@@ -317,7 +321,7 @@ function createStudio() {
     desiredPosition.lerpVectors(positions[index],positions[index+1],fraction);desiredTarget.lerpVectors(targets[index],targets[index+1],fraction);
     softPointer.lerp(pointer,motion?.035:1);
     yaw=THREE.MathUtils.lerp(yaw,immersive?targetYaw:0,.06);pitch=THREE.MathUtils.lerp(pitch,immersive?targetPitch:0,.06);
-    if(innerWidth<761){desiredPosition.z+=3;desiredPosition.x*=.5;desiredTarget.x*=.45;}
+    if(innerWidth<761){desiredPosition.z+=3;desiredPosition.x*=.5;desiredTarget.x=desiredTarget.x*.45+1.4*Math.max(0,1-smoothedProgress);}
     if(motion && !immersive){desiredPosition.x+=softPointer.x*.5;desiredPosition.y+=softPointer.y*.17;}
     if(immersive){
       const radius=13.6+zoom;desiredPosition.set(Math.sin(yaw)*radius,3.8+pitch*7,Math.cos(yaw)*radius);desiredTarget.set(Math.sin(yaw)*2,1.75+pitch*2,-3.2);
