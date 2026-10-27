@@ -15,7 +15,23 @@
   <link rel="preload" href="/assets/instrument-serif-400-italic.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
+<body class="awaiting-entry">
+  <dialog id="welcomeDialog" class="welcome-screen" closedby="none" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription" open>
+    <div class="welcome-header"><span class="wordmark" aria-label="Emotive">əmoti<span>ve</span><sup>®</sup></span><span class="mono">IT + AI / A human touch</span></div>
+    <div class="welcome-content">
+      <div class="welcome-sculpture" aria-hidden="true"><span></span><i></i></div>
+      <p class="mono welcome-eyebrow">Before you step inside</p>
+      <h2 id="welcomeTitle">A little more<br><em>feeling.</em></h2>
+      <p id="welcomeDescription">Explore our world with a gentle vocal nasheed,<br class="welcome-break"> or enjoy a quiet moment. Your choice.</p>
+      <div class="welcome-actions">
+        <button id="enterWithAudio" class="welcome-audio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></svg><span>Continue with audio</span><span aria-hidden="true">↗</span></button>
+        <button id="enterWithoutAudio" class="welcome-silent" autofocus><span>Continue without audio</span><span aria-hidden="true">↗</span></button>
+      </div>
+      <p class="welcome-note mono">You can change sound anytime.</p>
+      <noscript><p>Please enable JavaScript to choose your experience and enter the studio.</p></noscript>
+    </div>
+    <div class="welcome-footer mono"><span>Intelligence with a human touch.</span><span>[ Enter the studio ]</span></div>
+  </dialog>
   <canvas id="fluidCanvas" class="fluid-canvas" aria-hidden="true"></canvas>
   <a class="skip-link" href="#story">Skip to content</a>
   <div class="scene-wrap" id="sceneWrap" aria-hidden="true">
@@ -55,7 +71,7 @@
         <div class="room-hint mono"><span class="live-dot"></span> An independent IT & AI agency <span class="hint-drag">/ Move to explore</span></div>
         <div class="hero-copy">
           <p class="eyebrow hero-eyebrow">Hi. We're Emotive — and we believe<br>intelligence should feel human</p>
-          <h1 id="heroTitle"><span class="title-line">People don’t</span><span class="title-line">remember technology <b class="turn-arrow">↳</b></span><span class="title-line indent-one"><b class="left-arrow">↪</b> People remember</span><span class="title-line indent-two">how it made them <em>feel</em></span></h1>
+          <h1 id="heroTitle" tabindex="-1"><span class="title-line">People don’t</span><span class="title-line">remember technology <b class="turn-arrow">↳</b></span><span class="title-line indent-one"><b class="left-arrow">↪</b> People remember</span><span class="title-line indent-two">how it made them <em>feel</em></span></h1>
         </div>
         <div class="hero-bottom mono"><a href="#chapter2">Scroll to get to know us <span>↓</span></a><button id="exploreRoom">Explore the room <span>⤢</span></button></div>
       </section>

@@ -1,3 +1,5 @@
+import { mountWelcome } from './welcome.js';
+
 const audio = document.querySelector('#nasheedAudio');
 const button = document.querySelector('#soundToggle');
 const settings = document.querySelector('#settingsSound');
@@ -45,3 +47,14 @@ document.addEventListener('visibilitychange', () => {
   else if (resume) { resume = false; start(); }
 });
 window.addEventListener('pagehide', () => stop());
+
+mountWelcome({
+  dialog: document.querySelector('#welcomeDialog'),
+  audioButton: document.querySelector('#enterWithAudio'),
+  silentButton: document.querySelector('#enterWithoutAudio'),
+  onChoice(withAudio) {
+    if (withAudio) start(); else stop();
+    document.body.classList.remove('awaiting-entry');
+    document.querySelector('#heroTitle').focus({preventScroll: true});
+  }
+});

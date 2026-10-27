@@ -307,7 +307,7 @@ function createStudio() {
 
   function render(time){
     requestAnimationFrame(render);
-    if(document.hidden || (!visible&&!immersive))return;
+    if(document.hidden || body.classList.contains('awaiting-entry') || (!visible&&!immersive))return;
     const eco=wrap.dataset.quality==='eco' || (innerWidth<761 && !wrap.dataset.quality);
     if((eco || software) && time-lastFrame<(software ? 40 : 31))return;
     const delta=Math.min((time-lastFrame)/1000,.06)||.016;lastFrame=time;
