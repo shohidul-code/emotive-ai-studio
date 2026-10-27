@@ -51,7 +51,8 @@ Open `http://localhost:8080`. Use HTTP rather than opening `index.html` directly
 | `dist/software-renderer.js` | Canvas perspective fallback using the same Three.js scene. |
 | `dist/fluid-solver.js` | Bounded 2D velocity/dye field, semi-Lagrangian advection, vorticity and pressure projection. |
 | `dist/fluid-cursor.js` | Pointer input, adaptive resolution, canvas output and effect lifecycle. |
-| `dist/nasheed-player.js` | Official YouTube IFrame Player API integration. |
+| `dist/nasheed-player.js` | Background audio and synchronized sound controls. |
+| `dist/welcome.js` | Modal welcome screen with explicit audio and silent entry choices. |
 | `dist/assets/` | Local photographs, fonts, vendored Three.js and license files. |
 | `tests/` · `scripts/` | Dependency-free regression tests and source validation. |
 | `vercel.json` | Static deployment, `dist` output and pre-deployment checks. |
@@ -64,7 +65,7 @@ Pointer events are passive, queued input is bounded, and the overlay has `pointe
 
 ### Audio and contact privacy
 
-Audio starts **off**. The background audio plays the locally hosted, approximately 51-second **Background Nasheed 6** by **I_read_quran**, sourced from [Pixabay](https://pixabay.com/sound-effects/musical-background-nasheed-6-504317/) under the [Pixabay Content License](https://pixabay.com/service/license-summary/). It loops at a quiet initial volume and pauses when the page is hidden. No YouTube iframe or third-party playback script is used. Credit and license links are visible in Settings and `dist/assets/licenses/NASHEED-CREDIT.txt`. This recording is integrated into the website experience; do not redistribute the MP3 on a standalone basis.
+A full-screen welcome dialog asks visitors to **Continue with audio** or **Continue without audio** before opening the site. The choice is requested on each fresh page load and is not stored. Audio starts only from the audio choice or a later speaker-button click. The welcome dialog traps focus and requires an explicit choice; keyboard users can activate either button. The main heading receives focus after entry. The background audio plays the locally hosted, approximately 51-second **Background Nasheed 6** by **I_read_quran**, sourced from [Pixabay](https://pixabay.com/sound-effects/musical-background-nasheed-6-504317/) under the [Pixabay Content License](https://pixabay.com/service/license-summary/). It loops at a quiet initial volume and pauses when the page is hidden. No YouTube iframe or third-party playback script is used. Credit and license links are visible in Settings and `dist/assets/licenses/NASHEED-CREDIT.txt`. This recording is integrated into the website experience; do not redistribute the MP3 on a standalone basis.
 
 The contact form sends a structured message (name, reply email, selected services, preferred timeline and idea) to **mdshohidulislam25100@gmail.com** using FormSubmit's AJAX endpoint. The visitor sees the destination and processing service before submitting. It includes native validation, whitespace validation, a honeypot, duplicate-submit prevention, a 20-second timeout, preserved text on failure and an optional downloadable copy after acceptance. Success means the form service accepted the request; inbox delivery is not independently asserted.
 
@@ -91,7 +92,7 @@ Keep the existing deployment-protection policy. After Git integration is connect
 - Replace portraits in `dist/assets/` and update descriptive alt text. Update the `portraitViews` map in `app.js` for switchable images.
 - Adjust the palette and layouts in `styles.css`; dye colors and opacity live in `fluid-cursor.js`.
 - Tune the room, lights and camera paths in `studio.js`.
-- Change the selected video ID in `nasheed-player.js` and update the visible credits and FAQ together.
+- Update the audio file in `index.html` and keep the visible license credit and FAQ in sync.
 - Update the FormSubmit destination in both `index.html` and `app.js` together, then activate the new mailbox and verify delivery.
 
 ## Verification
@@ -103,6 +104,7 @@ Updated checks on 27 October 2026:
 - Fluid output, on/off switch, motion interlock, Eco resolution and pointer pass-through exercised. An observed High-quality fluid frame took about 1.7ms in the test browser; this is a spot measurement, not a device-wide performance guarantee.
 - Studio renders through the software fallback; explore, keyboard movement, reset, exit and light theme exercised.
 - Portrait switches, concept dialog, project brief creation/editing, FAQs and mobile navigation exercised.
+- Welcome entry is covered by regression tests for explicit choice, synchronous audio intent and duplicate-click protection.
 - Native nasheed playback verified: duration 50.886531 seconds, readyState 4, paused false and advancing playback time. The speaker button and Settings switch control playback without showing a player panel.
 - Contact submission was exercised; the provider timed out in the test environment. Failure retained visitor text and restored the submit button. Actual inbox delivery and recipient activation remain unverified.
 
